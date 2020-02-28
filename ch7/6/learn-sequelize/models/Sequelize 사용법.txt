@@ -1,0 +1,66 @@
+Sequelize 사용법 - mysql 사용
+
+npm i sequelize mysql2
+npm i -g sequelize-cli
+sequelize init			=> 이걸 해야 쓸수 있다는 듯?
+
+app.js 에서 디펜던시 추가
+var sequelize = require(`./models`).sequelize
+
+var app = express();
+sequelize.sync();
+
+모델 정의하기
+
+MySQL 에서 정의한 테이블을 시퀄라이즈에서도 정의해야 함.
+그냥 시퀄라이즈에서 다 설정하면 MySQL 에서는 알아서 생성되니까 그냥 MySQL은 가만히 놔두는걸로
+
+models 폴더에 user, comment 모델을 만들고 users, commnets 테이블을 연결
+model 이름은 단수형, 테이블 이름은 복수형으로 사용
+
+ex) model/user.js
+	module.exports = (sequelize, DataTypes) => {
+		return sequelize.define('user', {
+			name : {
+				type : DataTypes.STRING(20),
+				allowNull : false,
+				unique : true,
+			},
+			age : {
+				type : DataTypes.INTGER.UNSIGNED,
+				allowNull : false,
+			},
+			married : {
+				type : DataTypes.BOOLEAN,
+				allowNull : false,
+			},
+			comment : {
+				 type : DataTypes.TEXT,
+				 allowNull : true,
+			},
+			created_at : {
+				 type : DataTypes.DATE,
+				 allowNull : false,
+				 defualtValue : DataTypes.NOW,
+			},
+		}, {
+			timestamps : false,
+		});
+	};
+
+책에서 알아서 id 를 기본키로 연결해주기 때문에 id 컬럼은 적어줄 필요가 없다고 하는데 id 가 어디를 말하는거여?
+
+SEQUELIZE 자료형 
+	VARCHAR	=>	STRING
+	INT 	=>	INTEGER
+	TINYINT	=>	BOOLEAN
+	DATETIME=>	DATE
+
+OPTION : .UNSIGNED
+		 .ZEROFILL
+	ex) INTEGER.UNSIGNED.ZEROFILL
+
+timestamps : true =>
+	createAt, updateAt 컬럼 추가, Low 생성, 수정 시 시간이 자동으로 입력됨
+paranoid  true =>
+	위의 옵션과 함께 쓰면 deletedAt 컬럼 추가, 삭제 여부 판별

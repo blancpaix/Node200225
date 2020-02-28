@@ -1,0 +1,92 @@
+MongoDB 사용하기 (MySQL 비교)
+
+특징 : 자바스크립트 문법을 사용		// MySQL
+	Not Only SQL 로 SQL 을 미사용
+	- 자유로은 데이터 입력 			// 규칙에 맞는 데이터 입력
+	- 컬렉션 간 JOIN 미지원			// 테이블 간 JOIN 지원
+	- 트랜잭션 미지원					// 트랜잭션 지원
+	- 확장성, 가용성					// 안정성, 일관성
+	- 컬렉션, 다큐먼트, 필드			// 테이블, 로우, 컬럼
+
+	고정된 테이블이 없다! 테이블에 상응하는 컬렉션(컬럼 따로 정의 X)
+	컬렉션에는 어떠한 데이터라도 들어갈 수 있다		(단점이 될수도??)
+	데이터를 빠르게 넣을 수 있고 쉽게 여러 서버에 데이터를 분산 가능
+
+	빅데이터, 메시징, 세션 관리 등 NoSQL 주로 사용
+
+실행
+cmd 실행 -> MongoDB 설치된 곳의 bin 폴더 cd -> monngod  --auth
+"										   -> mongo admin -u userid -p password
+
+계정 만들기
+use admin
+db.createUser ({ user : 'user', pwd : 'password', roles : ['root'] })
+
+데이터베이스 생성
+use database_name
+데이터베이스 조회
+show dbs
+작업중인 데이터베이스 조회
+db
+컬렉션 생성 (사실상 해 줄 필요 없음)
+db.createCollection('users')
+컬렉션 조회
+show collections
+
+CRUD
+-Create
+	db.users.save({ name : 'name', age : 10, married : true, comment : '안늉?', createdAt : new Date() });
+-Find + Create
+	db.users.find({ name : 'name'}, { _id : 1 })
+		_id 는 컬렉션마다 자동으로 생성되는거 같고 pk랑 비슷한 개념같은데... 저게 hash화된 값인듯? 이상한 글자 반환함
+	db.comments.save({ commenter : ObjectId('위에서 반환된 값'), comment : '이상함', createdAt : new Date() })
+
+-Read
+	db.uesrs.find({})
+	db.comments.find({})
+	
+	특정 필드(컬럼) 만 조회		0/false: X		1/true: 조회
+		db.users.find({}, { _id : 0, name : 1, married : 1})
+	조건 부여
+		db.users.find({ age : { $ge : 30}, married : true}, { _id : 0, name : 1, age: 1})
+* 연산자
+	$gt 초과
+	$gte 이상
+	$lt 미만
+	$lte 이하
+	$ne 같지 않음
+	$or 또는
+	$in 배열 요소 중 하나
+
+	$or 사용하기 age 30 이상 married false 인 다큐먼트 조회
+	or 존재하는 곳의 배열 속에 조건을 집어넣음
+		db.uses.find({ $or : {a ge: { $gt 30} } , {married : false}}, { _id : 0, name : 1, married : 1} );
+	정렬		.sort 		-1 : 내림차순		1 : 오름차순
+		""		.sort({ age : -1 })
+	조회 개수 설정 	.limit (개수)
+		""		""		.limit(2)
+	건너뛸 개수 설정		.skip(개수)
+		""		""		""		.skip(2)
+
+-Update
+	update ({ 수정할 다큐먼트 지정 }, { 수정할 내용 })
+	일부만 수정 => $set 연산자 사용, 아니면 통째로 바뀜
+	db.users.update ({ name : 'nero' }, { $set : {comment : '안뉴엉~'} });
+
+-Delete
+	remove ({ 삭제할 다큐먼트에 대한 정보가 담긴 객체 })
+	db.users.remove ({ name : 'zero' });
+
+
+
+
+노드와 몽고를 연동해줄 뿐만 아니라 쿼리로 만들어주는 라이브러리 => Mongoose	ODM Object Docuent Mapping
+
+schema => 노드 서버단에서 데이터를 한번 필더링 해줌
+JOIN => populate 
+
+express learn-mongoose --view=pug
+cd learn-mongoose & npm i
+npm i mongoose
+
+root dir에 schema 폴더 생성
