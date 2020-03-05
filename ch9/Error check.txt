@@ -2,3 +2,10 @@ hasMany is undefined
  sol : 
 	 리턴이 일단 안되어서 리턴을 생성했고요
 	 오타 남... 변수를 잘못지정함
+
+
+data and salt arguments required
+ sol : 	
+ 	이거 뭐여
+ 	req.body.password나 password 에 값이 넘어오지 않는다.
+ 	이거.. 주소를 안씀...ㅜㅠ
