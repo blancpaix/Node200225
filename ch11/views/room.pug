@@ -3,6 +3,7 @@ extends layout
 block content
 	fieldset
 		legend 채팅방 생성
+		
 		form(action='/room' method='post')
 			div: input(name='title' placeholder='방 제목')
 			div: input(name='max' type='number' placeholder='수용 인원(최소 2명)' min='2' value='10')

@@ -1,0 +1,23 @@
+{
+  "name": "node-place",
+  "version": "0.0.1",
+  "description": "Place Searching Service Using Google API",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "Kim",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^1.1.0",
+    "axios": "^0.19.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.9.4",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.4"
+  }
+}

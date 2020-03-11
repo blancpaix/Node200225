@@ -1,0 +1,7 @@
+bcrypt 설치 오류
+	npm i -g windows-build-tools
+	
+	아니 그냥 npm i bcrypt@4.0.0 함
+
+파일 업로드
+	enctype='multipart/form-data' 잘 입력해줌
