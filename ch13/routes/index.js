@@ -2,7 +2,7 @@ const express = require(`express`);
 const util = require(`util`);
 const googleMaps = require(`@google/maps`);
 
-const History = require(`./schemas/history`);
+const History = require(`../schemas/history`);
 
 const router = express.Router();
 const googleMapsClient = googleMaps.createClient({
