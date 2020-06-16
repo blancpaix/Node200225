@@ -1,0 +1,21 @@
+{
+  "name": "crawling",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "env": "0.0.2",
+    "fs": "0.0.1-security",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7",
+    "puppeteer": "^3.3.0",
+    "sequelize": "^5.21.13",
+    "sequelize-cli": "^5.5.1"
+  }
+}
