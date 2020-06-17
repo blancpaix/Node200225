@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('schedule', {
-        date : {
-            type : DataTypes.DATE,
-            allowNull : false
-        },
         broadcastor : {
             type: DataTypes.STRING,
             allowNull : false
